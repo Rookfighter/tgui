@@ -1,0 +1,1 @@
+../../../upstream/include/TGUI/TextureManager.hpp
