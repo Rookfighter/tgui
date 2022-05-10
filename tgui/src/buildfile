@@ -1,4 +1,4 @@
-import intf_libs =
+import intf_libs = stb_image%lib{stb_image}
 impl_libs = # Implementation dependencies.
 
 # Public headers.
@@ -16,8 +16,8 @@ lib{tgui}: TGUI/{hxx cxx}{**} $impl_libs $intf_libs
 # Build options.
 out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
-out_pfx_src = [dir_path] $out_root/src/
-src_pfx_src = [dir_path] $src_root/src/
+out_pfx_src = [dir_path] $out_root/src/TGUI/
+src_pfx_src = [dir_path] $src_root/src/TGUI/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
                 "-I$out_pfx_inc" "-I$src_pfx_inc"

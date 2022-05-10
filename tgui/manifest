@@ -13,3 +13,4 @@ package-email: rookfighter@posteo.org
 builds: default
 depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
+depends: stb_image ^2.26.0
