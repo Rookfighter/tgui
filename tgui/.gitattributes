@@ -4,6 +4,7 @@ include/TGUI/Widgets symlink=dir
 include/TGUI/extlibs/Aurora symlink=dir
 include/TGUI/extlibs/glad symlink=dir
 include/TGUI/extlibs/nanosvg symlink=dir
+include/TGUI/extlibs/stb symlink=dir
 src/TGUI/Loading symlink=dir
 src/TGUI/Renderers symlink=dir
 src/TGUI/Widgets symlink=dir

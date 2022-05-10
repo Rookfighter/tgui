@@ -1,4 +1,4 @@
-import intf_libs = stb_image%lib{stb_image}
+intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 
 # Public headers.

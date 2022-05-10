@@ -1,6 +1,6 @@
 import intf_libs = tgui%lib{tgui}
 import intf_libs += sfml-system%lib{sfml-system}
-import intf_libs += sfml-graphics%lib{sfml-window}
+import intf_libs += sfml-window%lib{sfml-window}
 import intf_libs += sfml-graphics%lib{sfml-graphics}
 impl_libs = # Implementation dependencies.
 
