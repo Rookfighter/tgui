@@ -7,3 +7,5 @@ src/TGUI/Backends symlink=dir
 src/TGUI/Loading symlink=dir
 src/TGUI/Renderers symlink=dir
 src/TGUI/Widgets symlink=dir
+examples/many_different_widgets symlink=dir
+examples/scalable_login_screen symlink=dir
