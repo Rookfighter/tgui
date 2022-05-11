@@ -15,5 +15,5 @@ switch $config.tgui.backend
     }
 }
 
-exe{many_differen_widgets}: many_differen_widgets/cxx{*} $main_src $images $libs
-exe{scalable_login_screen}: scalable_login_screen/cxx{*} $main_src $images $libs
+exe{example_many_different_widgets}: many_different_widgets/cxx{*} $main_src $images $libs
+exe{example_scalable_login_screen}: scalable_login_screen/cxx{*} $main_src $images $libs
