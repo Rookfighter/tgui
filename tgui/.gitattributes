@@ -1,10 +1,9 @@
+include/TGUI/Backends symlink=dir
 include/TGUI/Loading symlink=dir
 include/TGUI/Renderers symlink=dir
 include/TGUI/Widgets symlink=dir
-include/TGUI/extlibs/Aurora symlink=dir
-include/TGUI/extlibs/glad symlink=dir
-include/TGUI/extlibs/nanosvg symlink=dir
-include/TGUI/extlibs/stb symlink=dir
+include/TGUI/extlibs symlink=dir
+src/TGUI/Backends symlink=dir
 src/TGUI/Loading symlink=dir
 src/TGUI/Renderers symlink=dir
 src/TGUI/Widgets symlink=dir

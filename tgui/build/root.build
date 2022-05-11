@@ -1,6 +1,7 @@
 cxx.std = latest
 
 using cxx
+using in
 
 hxx{*}: extension = hpp
 ixx{*}: extension = ipp
@@ -13,3 +14,21 @@ hxx{*}: cxx.importable = true
 
 # The test target for cross-testing (running tests under Wine, etc).
 test.target = $cxx.target
+
+# Possible backend choices:
+#   - sfml
+#   - sdl (TODO)
+config [string] config.tgui.backend ?= 'sfml'
+config [string] config.tgui.std ?= '14'
+
+switch $config.tgui.backend
+{
+    case 'sfml'
+    {
+
+    }
+    case 'sdl'
+        fail 'TGUI backend sdl not available yet'
+    default
+        fail 'Invalid TGUI backend ' $config.tgui.backend
+}

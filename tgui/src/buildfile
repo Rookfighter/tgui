@@ -1,5 +1,7 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
+backend_src = # source files for the backend
+impl_poptions = # Implementation poptions
 
 # Public headers.
 pub = [dir_path] ../include/
@@ -10,8 +12,33 @@ pub_hdrs = $($pub/ pub_hdrs)
 
 lib{tgui}: $pub/{$pub_hdrs}
 
+
+switch $config.tgui.backend
+{
+    case 'sfml'
+    {
+        import intf_libs += sfml-system%lib{sfml-system}
+        import intf_libs += sfml-window%lib{sfml-window}
+        import intf_libs += sfml-graphics%lib{sfml-graphics}
+
+        backend_src += TGUI/Backends/SFML/{hxx cxx}{**}
+        impl_poptions += -DTGUI_HAS_BACKEND_SFML
+    }
+    case 'sdl'
+    {
+        # TODO import SDL when it is available
+        backend_src += TGUI/Backends/SDL/{hxx cxx}{**}
+        impl_poptions += -DTGUI_HAS_BACKEND_SDL
+    }
+}
+
 # Private headers and sources as well as dependencies.
-lib{tgui}: TGUI/{hxx cxx}{**} $impl_libs $intf_libs
+lib{tgui}: TGUI/{hxx cxx}{*} \
+           TGUI/Loading/{hxx cxx}{**} \
+           TGUI/Renderers/{hxx cxx}{**} \
+           TGUI/Widgets/{hxx cxx}{**} \
+           $backend_src \
+           $impl_libs $intf_libs
 
 # Build options.
 out_pfx_inc = [dir_path] $out_root/include/
@@ -20,10 +47,11 @@ out_pfx_src = [dir_path] $out_root/src/TGUI/
 src_pfx_src = [dir_path] $src_root/src/TGUI/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                $impl_poptions
 
-{hbmia obja}{*}: cxx.poptions += -DTGUI_STATIC_BUILD
-{hbmis objs}{*}: cxx.poptions += -DTGUI_SHARED_BUILD
+{hbmia obja}{*}: cxx.poptions += -DTGUI_STATIC
+{hbmis objs}{*}: cxx.poptions += -DTGUI_DYNAMIC
 
 # Export options.
 lib{tgui}:
@@ -33,7 +61,7 @@ lib{tgui}:
 }
 
 liba{tgui}: cxx.export.poptions += -DTGUI_STATIC
-libs{tgui}: cxx.export.poptions += -DTGUI_SHARED
+libs{tgui}: cxx.export.poptions += -DTGUI_DYNAMIC
 
 # For pre-releases use the complete version to make sure they cannot be used
 # in place of another pre-release or the final version. See the version module
