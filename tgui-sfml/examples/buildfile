@@ -1,9 +1,0 @@
-
-import libs += tgui-sfml%lib{tgui-sfml}
-main_src =
-images = file{*.jpg}
-
-./ : exe{example_many_different_widgets} exe{example_scalable_login_screen}
-
-exe{example_many_different_widgets}: many_different_widgets/cxx{*} cxx{main-sfml} $images $libs
-exe{example_scalable_login_screen}: scalable_login_screen/cxx{*} cxx{main-sfml} $images $libs

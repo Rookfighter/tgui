@@ -1,6 +1,0 @@
-project = tgui-sfml
-
-using version
-using config
-using install
-using dist

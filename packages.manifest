@@ -1,4 +1,2 @@
 : 1
-location: tgui-base/
-:
-location: tgui-sfml/
+location: tgui/
