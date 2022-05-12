@@ -1,8 +1,8 @@
 : 1
-name: tgui
+name: tgui-sfml
 version: 0.9.3-a.0.z
 project: tgui
-summary: Texus' Graphical User Interface (TGUI).
+summary: SFML backend for Texus' Graphical User Interface (TGUI).
 license: Zlib
 description-file: README.md
 topics: C++, TGUI
@@ -14,6 +14,7 @@ builds: default
 depends: * build2 >= 0.15.0-
 depends: * bpkg >= 0.15.0-
 
-depends: sfml-system ^2.5.0 ? ($config.tgui.backend == 'sfml')
-depends: sfml-window ^2.5.0 ? ($config.tgui.backend == 'sfml')
-depends: sfml-graphics ^2.5.0 ? ($config.tgui.backend == 'sfml')
+depends: tgui-base == $
+depends: sfml-system ^2.5.0
+depends: sfml-window ^2.5.0
+depends: sfml-graphics ^2.5.0

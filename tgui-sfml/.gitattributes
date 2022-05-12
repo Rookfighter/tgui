@@ -1,0 +1,4 @@
+include/TGUI/Backends/SFML symlink=dir
+src/TGUI/Backends/SFML symlink=dir
+examples/many_different_widgets symlink=dir
+examples/scalable_login_screen symlink=dir

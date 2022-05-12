@@ -1,7 +1,5 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-backend_src = # source files for the backend
-impl_poptions = # Implementation poptions
 
 # Public headers.
 pub = [dir_path] ../include/
@@ -10,34 +8,13 @@ include $pub
 
 pub_hdrs = $($pub/ pub_hdrs)
 
-lib{tgui}: $pub/{$pub_hdrs}
-
-
-switch $config.tgui.backend
-{
-    case 'sfml'
-    {
-        import intf_libs += sfml-system%lib{sfml-system}
-        import intf_libs += sfml-window%lib{sfml-window}
-        import intf_libs += sfml-graphics%lib{sfml-graphics}
-
-        backend_src += TGUI/Backends/SFML/{hxx cxx}{**}
-        impl_poptions += -DTGUI_HAS_BACKEND_SFML
-    }
-    case 'sdl'
-    {
-        # TODO import SDL when it is available
-        backend_src += TGUI/Backends/SDL/{hxx cxx}{**}
-        impl_poptions += -DTGUI_HAS_BACKEND_SDL
-    }
-}
+lib{tgui-base}: $pub/{$pub_hdrs}
 
 # Private headers and sources as well as dependencies.
-lib{tgui}: TGUI/{hxx cxx}{*} \
+lib{tgui-base}: TGUI/{hxx cxx}{*} \
            TGUI/Loading/{hxx cxx}{**} \
            TGUI/Renderers/{hxx cxx}{**} \
            TGUI/Widgets/{hxx cxx}{**} \
-           $backend_src \
            $impl_libs $intf_libs
 
 # Build options.
@@ -47,17 +24,16 @@ out_pfx_src = [dir_path] $out_root/src/TGUI/
 src_pfx_src = [dir_path] $src_root/src/TGUI/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc" \
-                $impl_poptions
+                "-I$out_pfx_inc" "-I$src_pfx_inc"
 
 {hbmia obja}{*}: cxx.poptions += -DTGUI_STATIC
 {hbmis objs}{*}: cxx.poptions += -DTGUI_DYNAMIC
 
 # Export options.
-lib{tgui}:
+lib{tgui-base}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
-  cxx.export.libs = $intf_libs
+    cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+    cxx.export.libs = $intf_libs
 }
 
 liba{tgui}: cxx.export.poptions += -DTGUI_STATIC
@@ -67,9 +43,9 @@ libs{tgui}: cxx.export.poptions += -DTGUI_DYNAMIC
 # in place of another pre-release or the final version. See the version module
 # for details on the version.* variable values.
 if $version.pre_release
-  lib{tgui}: bin.lib.version = "-$version.project_id"
+    lib{tgui-base}: bin.lib.version = "-$version.project_id"
 else
-  lib{tgui}: bin.lib.version = "-$version.major.$version.minor"
+    lib{tgui-base}: bin.lib.version = "-$version.major.$version.minor"
 
 # Don't install private headers.
 {hxx ixx txx}{*}: install = false

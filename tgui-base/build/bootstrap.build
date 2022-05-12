@@ -1,7 +1,6 @@
-project = tgui
+project = tgui-base
 
 using version
 using config
-using test
 using install
 using dist
