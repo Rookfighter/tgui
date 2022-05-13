@@ -1,0 +1,3 @@
+src symlink=dir
+include symlink=dir
+resources symlink=dir

@@ -1,7 +1,8 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 backend_src = # source files for the backend
-impl_poptions = # Implementation poptions
+intf_poptions =  # Interface poptions.
+impl_poptions = # Implementation poptions.
 impl_poptions += -DTGUI_EXPORTS
 
 # Public headers.
@@ -23,13 +24,13 @@ switch $config.tgui.backend
         import intf_libs += sfml-graphics%lib{sfml-graphics}
 
         backend_src += TGUI/Backends/SFML/{hxx cxx}{**}
-        impl_poptions += -DTGUI_HAS_BACKEND_SFML
+        intf_poptions += -DTGUI_HAS_BACKEND_SFML
     }
     case 'sdl'
     {
         # TODO import SDL when it is available
         backend_src += TGUI/Backends/SDL/{hxx cxx}{**}
-        impl_poptions += -DTGUI_HAS_BACKEND_SDL
+        intf_poptions += -DTGUI_HAS_BACKEND_SDL
     }
 }
 
@@ -49,7 +50,7 @@ src_pfx_src = [dir_path] $src_root/src/TGUI/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
                 "-I$out_pfx_inc" "-I$src_pfx_inc" \
-                $impl_poptions
+                $impl_poptions $intf_poptions
 
 {hbmia obja}{*}: cxx.poptions += -DTGUI_STATIC
 {hbmis objs}{*}: cxx.poptions += -DTGUI_DYNAMIC
@@ -57,7 +58,7 @@ cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
 # Export options.
 lib{tgui}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" $intf_poptions
   cxx.export.libs = $intf_libs
 }
 
