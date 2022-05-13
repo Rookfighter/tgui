@@ -2,6 +2,7 @@ intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 backend_src = # source files for the backend
 impl_poptions = # Implementation poptions
+impl_poptions += -DTGUI_EXPORTS
 
 # Public headers.
 pub = [dir_path] ../include/
